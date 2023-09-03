@@ -31,7 +31,7 @@ jobs:
       -
         name: Run tests
         run: |
-          docker run -it ${{ env.IMAGE_NAME }} ./vendor/bin/phpunit
+          docker run ${{ env.IMAGE_NAME }} ./vendor/bin/phpunit
       -
         name: Push image
         uses: docker/build-push-action@v4
