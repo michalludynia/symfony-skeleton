@@ -23,12 +23,21 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       -
-        name: Build and push
+        name: Build image
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:api"
-          push: true
           tags: ${{ env.IMAGE_NAME }}
+      -
+        name: Run tests
+        run: |
+          docker run -it ${{ env.IMAGE_NAME }} ./vendor/bin/phpunit
+      -
+        name: Push image
+        uses: docker/push-action@v4
+        with:
+          image: ${{ env.IMAGE_NAME }}
+          
   deploy-prod:
     needs: build-docker
     runs-on: ubuntu-latest
