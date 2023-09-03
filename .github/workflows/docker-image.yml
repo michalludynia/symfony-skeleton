@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - 'main'
-
+env:
+  IMAGE_NAME: wazowski11/symfony-skeleton:main
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -28,3 +29,19 @@ jobs:
           context: "{{defaultContext}}:api"
           push: true
           tags: wazowski11/symfony-skeleton:main
+  deploy-production:
+    runs-on: ubuntu-latest
+    steps:
+      - 
+        name: Deploy to EC2 instance
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            docker stop webapp || true
+            docker rm webapp || true
+            docker pull $IMAGE_NAME
+            docker run -d --name webapp -p 80:80 $IMAGE_NAME
+      
