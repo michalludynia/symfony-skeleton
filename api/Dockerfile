@@ -24,3 +24,7 @@ RUN chown -R www-data:www-data /srv/api/public
 WORKDIR /srv/api
 
 RUN composer install
+
+CMD ["apache2-foreground"]
+
+EXPOSE 80
