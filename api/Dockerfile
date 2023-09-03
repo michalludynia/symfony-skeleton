@@ -18,6 +18,8 @@ RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
 #clone symfony skeleton code
 COPY . /srv/api
 
+VOLUME /srv/api
+
 RUN chown -R www-data:www-data /srv/api/public
 
 #install vendor dependencies

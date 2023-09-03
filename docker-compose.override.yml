@@ -1,0 +1,6 @@
+services:
+  web-app:
+    volumes:
+      - ./api:/srv/api:rw
+    ports:
+      - "8080:80"
