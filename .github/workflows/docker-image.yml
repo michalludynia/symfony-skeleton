@@ -5,8 +5,8 @@ on:
     branches:
       - 'main'
 env:
-  IMAGE_TEST_TAG: symfony-skeleton:main
-  IMAGE_MAIN_TAG: symfony-skeleton:main
+  IMAGE_TEST_TAG: 619865778916.dkr.ecr.eu-central-1.amazonaws.com/symfony-skeleton:main
+  IMAGE_MAIN_TAG: 619865778916.dkr.ecr.eu-central-1.amazonaws.com/symfony-skeleton:main
 jobs:
   build-docker:
     runs-on: ubuntu-latest
