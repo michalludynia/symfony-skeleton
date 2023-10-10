@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:api"
-          tags: "${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_TEST_TAG }}"
+          tags: ${{ env.IMAGE_TEST_TAG }}
           load: true
       -
         name: Run tests
