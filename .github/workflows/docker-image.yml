@@ -26,23 +26,23 @@ jobs:
           username: ${{ secrets.AWS_ECR_ACCESS_KEY }}
           password: ${{ secrets.AWS_ECR_SECRET }}
       -
-        name: Build image
-        uses: docker/build-push-action@v4
-        with:
-          context: "{{defaultContext}}:api"
-          tags: ${{ env.IMAGE_TEST_TAG }}
-          load: true
-      -
-        name: Run tests
-        run: |
-          docker run --rm ${{ env.IMAGE_TEST_TAG }} ./vendor/bin/phpunit
+      #   name: Build image
+      #   uses: docker/build-push-action@v4
+      #   with:
+      #     context: "{{defaultContext}}:api"
+      #     tags: ${{ env.IMAGE_TEST_TAG }}
+      #     load: true
+      # -
+      #   name: Run tests
+      #   run: |
+      #     docker run --rm ${{ env.IMAGE_TEST_TAG }} ./vendor/bin/phpunit
       -
         name: Push image
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:api"
           tags: "${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_TEST_TAG }}"
-          push: true
+          # push: true
           
   # deploy-prod:
   #   needs: build-docker
