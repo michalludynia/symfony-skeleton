@@ -7,7 +7,7 @@ on:
 env:
   CONTAINER_REGISTRY: 619865778916.dkr.ecr.eu-central-1.amazonaws.com
   IMAGE_MAIN_TAG: symfony-skeleton:main
-  IMAGE_TEST_TAG: symfony-skeleton:main
+  IMAGE_TEST_TAG: symfony-skeleton:testing
 jobs:
   build-docker:
     runs-on: ubuntu-latest
@@ -25,17 +25,17 @@ jobs:
           registry: ${{ env.CONTAINER_REGISTRY }}
           username: ${{ secrets.AWS_ECR_ACCESS_KEY }}
           password: ${{ secrets.AWS_ECR_SECRET }}
-      # -
-      #   name: Build image
-      #   uses: docker/build-push-action@v4
-      #   with:
-      #     context: "{{defaultContext}}:api"
-      #     tags: ${{ env.IMAGE_TEST_TAG }}
-      #     load: true
-      # -
-      #   name: Run tests
-      #   run: |
-      #     docker run --rm ${{ env.IMAGE_TEST_TAG }} ./vendor/bin/phpunit
+      -
+        name: Build image
+        uses: docker/build-push-action@v4
+        with:
+          context: "{{defaultContext}}:api"
+          tags: ${{ env.IMAGE_TEST_TAG }}
+          load: true
+      -
+        name: Run tests
+        run: |
+          docker run --rm ${{ env.IMAGE_TEST_TAG }} ./vendor/bin/phpunit
       -
         name: Push image
         uses: docker/build-push-action@v4
@@ -44,7 +44,8 @@ jobs:
           tags: "${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_TEST_TAG }}"
           push: true
           provenance: false
-          
+
+  # turned off since I'm switching pure EC2 to ECS
   # deploy-prod:
   #   needs: build-docker
   #   runs-on: ubuntu-latest
