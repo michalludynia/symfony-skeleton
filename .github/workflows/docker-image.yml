@@ -42,7 +42,7 @@ jobs:
         with:
           context: "{{defaultContext}}:api"
           tags: "${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_TEST_TAG }}"
-          # push: true
+          push: true
           
   # deploy-prod:
   #   needs: build-docker
