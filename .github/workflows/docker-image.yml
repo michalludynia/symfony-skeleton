@@ -6,8 +6,8 @@ on:
       - 'main'
 env:
   CONTAINER_REGISTRY: 619865778916.dkr.ecr.eu-central-1.amazonaws.com
-  IMAGE_TEST_TAG: "${{ env.CONTAINER_REGISTRY }}/symfony-skeleton:main"
-  IMAGE_MAIN_TAG: "${{ env.CONTAINER_REGISTRY }}/symfony-skeleton:main"
+  IMAGE_MAIN_TAG: symfony-skeleton:main
+  IMAGE_TEST_TAG: symfony-skeleton:main
 jobs:
   build-docker:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
         name: Login to ECR
         uses: docker/login-action@v3
         with:
-          registry: 619865778916.dkr.ecr.eu-central-1.amazonaws.com
+          registry: ${{ env.CONTAINER_REGISTRY }}
           username: ${{ secrets.AWS_ECR_ACCESS_KEY }}
           password: ${{ secrets.AWS_ECR_SECRET }}
       -
@@ -30,7 +30,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:api"
-          tags: ${{ env.IMAGE_TEST_TAG }}
+          tags: "${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_TEST_TAG }}"
           load: true
       -
         name: Run tests
@@ -41,7 +41,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: "{{defaultContext}}:api"
-          tags: ${{ env.IMAGE_TEST_TAG }}
+          tags: "${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_TEST_TAG }}"
           push: true
           
   # deploy-prod:
