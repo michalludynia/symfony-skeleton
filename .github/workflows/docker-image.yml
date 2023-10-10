@@ -5,8 +5,9 @@ on:
     branches:
       - 'main'
 env:
-  IMAGE_TEST_TAG: 619865778916.dkr.ecr.eu-central-1.amazonaws.com/symfony-skeleton:main
-  IMAGE_MAIN_TAG: 619865778916.dkr.ecr.eu-central-1.amazonaws.com/symfony-skeleton:main
+  CONTAINER_REGISTRY: 619865778916.dkr.ecr.eu-central-1.amazonaws.com
+  IMAGE_TEST_TAG: "${{ env.CONTAINER_REGISTRY }}/symfony-skeleton:main"
+  IMAGE_MAIN_TAG: "${{ env.CONTAINER_REGISTRY }}/symfony-skeleton:main"
 jobs:
   build-docker:
     runs-on: ubuntu-latest
@@ -43,21 +44,21 @@ jobs:
           tags: ${{ env.IMAGE_TEST_TAG }}
           push: true
           
-  deploy-prod:
-    needs: build-docker
-    runs-on: ubuntu-latest
-    steps:
-      - 
-        name: Deploy to EC2 instance
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USERNAME }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
-          port: 22
-          script: |
-            docker stop webapp || true
-            docker rm webapp || true
-            docker pull ${{ env.IMAGE_MAIN_TAG }}
-            docker run -d --name webapp -p 80:80 ${{ env.IMAGE_MAIN_TAG }}
+  # deploy-prod:
+  #   needs: build-docker
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - 
+  #       name: Deploy to EC2 instance
+  #       uses: appleboy/ssh-action@master
+  #       with:
+  #         host: ${{ secrets.EC2_HOST }}
+  #         username: ${{ secrets.EC2_USERNAME }}
+  #         key: ${{ secrets.EC2_PRIVATE_KEY }}
+  #         port: 22
+  #         script: |
+  #           docker stop webapp || true
+  #           docker rm webapp || true
+  #           docker pull ${{ env.IMAGE_MAIN_TAG }}
+  #           docker run -d --name webapp -p 80:80 ${{ env.IMAGE_MAIN_TAG }}
       
