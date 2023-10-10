@@ -25,7 +25,7 @@ jobs:
           registry: ${{ env.CONTAINER_REGISTRY }}
           username: ${{ secrets.AWS_ECR_ACCESS_KEY }}
           password: ${{ secrets.AWS_ECR_SECRET }}
-      -
+      # -
       #   name: Build image
       #   uses: docker/build-push-action@v4
       #   with:
