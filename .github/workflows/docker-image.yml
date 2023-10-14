@@ -56,31 +56,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_ECR_SECRET }}
           aws-region: eu-central-1
       - 
-        name: Checkout
-        uses: actions/checkout@v2
-      - 
         name: Redeploy ECS service
         uses: donaldpiret/ecs-deploy@master
         with:
           cluster: symfony-skeleton
           target: symfony-skeleton-service
-
-  # turned off since I'm switching pure EC2 to ECS
-  # deploy-prod:
-  #   needs: build-docker
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - 
-  #       name: Deploy to EC2 instance
-  #       uses: appleboy/ssh-action@master
-  #       with:
-  #         host: ${{ secrets.EC2_HOST }}
-  #         username: ${{ secrets.EC2_USERNAME }}
-  #         key: ${{ secrets.EC2_PRIVATE_KEY }}
-  #         port: 22
-  #         script: |
-  #           docker stop webapp || true
-  #           docker rm webapp || true
-  #           docker pull ${{ env.IMAGE_MAIN_TAG }}
-  #           docker run -d --name webapp -p 80:80 ${{ env.IMAGE_MAIN_TAG }}
-      
