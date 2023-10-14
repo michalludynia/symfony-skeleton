@@ -56,4 +56,4 @@ jobs:
          uses: donaldpiret/ecs-deploy@master
          with:
            cluster: symfony-skeleton
-           target: symfony-skeleton-service
+           target: symfony-skeleton-service-v3
