@@ -44,6 +44,15 @@ jobs:
           tags: "${{ env.CONTAINER_REGISTRY }}/${{ env.IMAGE_MAIN_TAG }}"
           push: true
           provenance: false
+      - 
+        name: Run Task on Amazon ECS
+        uses: smitp/amazon-ecs-run-task@v1
+        with:
+          task-definition: task-definition.json
+          cluster: symfony-skeleton
+          count: 1
+          started-by: github-actions-${{ github.actor }}
+          wait-for-finish: false
 
   # turned off since I'm switching pure EC2 to ECS
   # deploy-prod:
