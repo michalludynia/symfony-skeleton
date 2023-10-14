@@ -59,14 +59,11 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       - 
-        name: Run Task on Amazon ECS
-        uses: smitp/amazon-ecs-run-task@v1
+        name: Redeploy ECS service
+        uses: donaldpiret/ecs-deploy@master
         with:
-          task-definition: task-definition.json
           cluster: symfony-skeleton
-          count: 1
-          started-by: github-actions-${{ github.actor }}
-          wait-for-finish: false
+          target: symfony-skeleton-service
 
   # turned off since I'm switching pure EC2 to ECS
   # deploy-prod:
