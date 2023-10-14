@@ -1,0 +1,62 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:eu-central-1:619865778916:task-definition/symfony-skeleton-task:1",
+  "containerDefinitions": [
+    {
+      "name": "symfony-skeleton",
+      "image": "619865778916.dkr.ecr.eu-central-1.amazonaws.com/symfony-skeleton:main",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "name": "symfony-skeleton-80-tcp",
+          "containerPort": 80,
+          "hostPort": 80,
+          "protocol": "tcp",
+          "appProtocol": "http"
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "environmentFiles": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "ulimits": []
+    }
+  ],
+  "family": "symfony-skeleton-task",
+  "executionRoleArn": "arn:aws:iam::619865778916:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "revision": 1,
+  "volumes": [],
+  "status": "ACTIVE",
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.ecr-auth"
+    },
+    {
+      "name": "ecs.capability.execution-role-ecr-pull"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+    },
+    {
+      "name": "ecs.capability.task-eni"
+    }
+  ],
+  "placementConstraints": [],
+  "compatibilities": [
+    "EC2",
+    "FARGATE"
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "runtimePlatform": {
+    "cpuArchitecture": "X86_64",
+    "operatingSystemFamily": "LINUX"
+  },
+  "registeredAt": "2023-10-14T16:33:30.928Z",
+  "registeredBy": "arn:aws:iam::619865778916:root",
+  "tags": []
+}
