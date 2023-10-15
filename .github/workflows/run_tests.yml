@@ -16,5 +16,4 @@ jobs:
       uses: php-actions/phpunit@master
       with:
         version: 9.6
-        bootstrap: api/vendor/autoload.php
-        configuration: api/phpunit.xml
+        configuration: api/phpunit.xml.dist
