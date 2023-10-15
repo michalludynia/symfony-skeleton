@@ -10,7 +10,7 @@ jobs:
   steps:
     - uses: actions/checkout@v3
     - name: Check API directory
-      run: ls /api
+      run: ls -la
     - uses: php-actions/composer@v6
       with:
         container_workdir: /api
