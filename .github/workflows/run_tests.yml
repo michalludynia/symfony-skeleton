@@ -11,10 +11,10 @@ jobs:
     - uses: actions/checkout@v3
     - uses: php-actions/composer@v6
       with:
-        container_workdir: ./api
+        container_workdir: api
     - name: PHPUnit Tests
       uses: php-actions/phpunit@master
       with:
         version: 9.6
-        bootstrap: ./api/vendor/autoload.php
-        configuration: ./api/phpunit.xml
+        bootstrap: api/vendor/autoload.php
+        configuration: api/phpunit.xml
