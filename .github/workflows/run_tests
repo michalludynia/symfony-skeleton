@@ -1,0 +1,16 @@
+name: build_docker
+
+on:
+  push:
+    branches:
+      - 'main'
+jobs:
+ unit-tests:
+  runs-on: ubuntu-latest
+  steps:
+   - uses: actions/checkout@v4
+       with:
+       sparse-checkout: .
+   -
+     name: Run unit
+     run: ./vendor/bin/phpunit
