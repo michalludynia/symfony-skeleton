@@ -1,4 +1,4 @@
-name: build_docker
+name: run_tests
 
 on:
   push:
@@ -9,7 +9,7 @@ jobs:
   runs-on: ubuntu-latest
   steps:
    - uses: actions/checkout@v4
-       with:
+     with:
        sparse-checkout: .
    -
      name: Run unit
