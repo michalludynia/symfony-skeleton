@@ -9,14 +9,12 @@ jobs:
   runs-on: ubuntu-latest
   steps:
     - uses: actions/checkout@v3
-    - name: Check API directory
-      run: ls -la
     - uses: php-actions/composer@v6
       with:
-        container_workdir: /api
+        container_workdir: ./api
     - name: PHPUnit Tests
       uses: php-actions/phpunit@master
       with:
         version: 9.6
-        bootstrap: vendor/autoload.php
-        configuration: api/phpunit.xml
+        bootstrap: ./api/vendor/autoload.php
+        configuration: ./api/phpunit.xml
